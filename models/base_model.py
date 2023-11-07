@@ -8,11 +8,25 @@ class BaseModel:
     """this is the BaseModel that defines all
     common attributes/methods for other classes"""
 
-    def __init__(self):
-        """this is a new class constructor that initialize a new BaseModel"""
+    """def __init__(self):
+        this is a new class constructor that initialize a new BaseModel
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.now()"""
+    def __init__(self, *args, **kwargs):
+        """this is a new class constructor that initialize a new BaseModel
+        Args:
+            *args: unused argument
+            **Kwargs: Key/value pairs of attributes"""
+        if kwargs:
+            kwargs.pop("__class__", None)
+            self.__dict__.update(kwargs)
+            self.created_at = datetime.strptime(kwargs['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+            self.updated_at = datetime.strptime(kwargs['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def save(self):
         """adding the public methods that updates the public
