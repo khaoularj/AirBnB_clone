@@ -213,4 +213,3 @@ class Test_Console(unittest.TestCase):
     def test_quit(self):
         """ checks the exit command"""
         self.assertTrue(HBNBCommand().onecmd("quit"))
-
